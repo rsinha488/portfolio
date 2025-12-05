@@ -1,0 +1,57 @@
+openapi: 3.0.0
+info:
+  title: MERN Portfolio API
+  description: API documentation for the MERN Portfolio Application
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: Local Development Server
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: connect.sid
+  schemas:
+    Project:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        content:
+          type: string
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+paths:
+  /api/projects:
+    get:
+      summary: Get all projects
+      responses:
+        200:
+          description: List of projects
+    post:
+      summary: Create a new project
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        201:
+          description: Project created
+  /api/auth/google:
+    get:
+      summary: Login with Google
+      responses:
+        302:
+          description: Redirect to Google

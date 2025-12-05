@@ -27,3 +27,5 @@ coverage
 ./backend/.env.test.local
 ./frontend/.env.production.local
 ./backend/.env.production.local
+
+./backend/.env.development

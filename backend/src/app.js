@@ -8,11 +8,15 @@ import passport from 'passport';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV || 'development'}` });
+dotenv.config({ path: '.env.local' }); // Also load .env.local if it exists
 
 const app = express();
 
 // Middleware
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
+}));
 app.use(cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:3000',
     credentials: true,

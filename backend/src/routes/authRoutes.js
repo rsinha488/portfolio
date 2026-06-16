@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
-const CLIENT_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+const CLIENT_URL = (process.env.FRONTEND_URL || 'http://localhost:3000').replace(/\/$/, '');
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_jwt_secret';
 
 // Google Auth

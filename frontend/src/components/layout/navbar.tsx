@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,7 @@ import api from "@/lib/api";
 
 export default function Navbar() {
     const { user, loading } = useAuth();
+    const [activeSection, setActiveSection] = useState<string>("");
 
     useEffect(() => {
         const hasVisited = sessionStorage.getItem('portfolio_visited_session');
@@ -26,6 +26,44 @@ export default function Navbar() {
             logVisit();
         }
     }, []);
+
+    useEffect(() => {
+        const sections = ["skills", "experience", "education", "projects", "achievements", "contact"];
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: "-25% 0px -55% 0px", // Trigger when the section occupies the viewport center
+            threshold: 0.05,
+        };
+
+        const observerCallback = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActiveSection(entry.target.id);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        sections.forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
+
+        const handleScroll = () => {
+            if (window.scrollY < 50) {
+                setActiveSection("");
+            }
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -52,12 +90,33 @@ export default function Navbar() {
                     aria-label="Main navigation"
                     className="hidden md:flex items-center gap-6 text-[11px] uppercase font-bold tracking-widest text-gray-500 dark:text-gray-400"
                 >
-                    <Link href="#projects" className="hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none rounded-sm">Projects</Link>
-                    <Link href="#skills" className="hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none rounded-sm">Skills</Link>
-                    <Link href="#experience" className="hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none rounded-sm">Experience</Link>
-                    <Link href="#education" className="hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none rounded-sm">Education</Link>
-                    <Link href="#achievements" className="hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none rounded-sm">Achievements</Link>
-                    <Link href="#contact" className="hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none rounded-sm">Contact</Link>
+                    {[
+                        { id: "skills", label: "Skills" },
+                        { id: "experience", label: "Experience" },
+                        { id: "education", label: "Education" },
+                        { id: "projects", label: "Projects" },
+                        { id: "achievements", label: "Achievements" },
+                        { id: "contact", label: "Contact" },
+                    ].map((item) => (
+                        <Link
+                            key={item.id}
+                            href={`#${item.id}`}
+                            className={`relative py-1 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none rounded-sm ${
+                                activeSection === item.id 
+                                    ? "text-blue-600 dark:text-blue-400 font-extrabold" 
+                                    : "text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 font-bold"
+                            }`}
+                        >
+                            {item.label}
+                            {activeSection === item.id && (
+                                <motion.span
+                                    layoutId="activeNavSection"
+                                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-600 to-cyan-500"
+                                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                                />
+                            )}
+                        </Link>
+                    ))}
                 </nav>
 
                 <div className="flex items-center gap-3">

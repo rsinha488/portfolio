@@ -13,18 +13,31 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://portfolio-dicj.onrender.com"),
   title: "Ruchi Sinha | Full Stack Developer & UI/UX Enthusiast",
   description: "Explore the portfolio of Ruchi Sinha, a Full Stack Developer specializing in building scalable web applications with high-end aesthetics and robust security.",
-  keywords: ["Full Stack Developer", "React", "Next.js", "Node.js", "Portfolio", "Web Development"],
+  keywords: [
+    "Ruchi Sinha",
+    "Full Stack Developer",
+    "Software Engineer",
+    "MERN Stack",
+    "Next.js Portfolio",
+    "React Developer",
+    "Voice AI Campaigns",
+    "SaaS Architecture"
+  ],
   authors: [{ name: "Ruchi Sinha" }],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Ruchi Sinha | Full Stack Developer Portfolio",
     description: "Building digital experiences with purpose and precision.",
-    url: "https://your-portfolio-url.com",
+    url: "https://portfolio-dicj.onrender.com",
     siteName: "Ruchi Sinha Portfolio",
     images: [
       {
-        url: "/og-image.png",
+        url: "/ruchi-photo.jpg",
         width: 1200,
         height: 630,
         alt: "Ruchi Sinha Portfolio Preview",
@@ -37,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ruchi Sinha | Full Stack Developer",
     description: "Building digital experiences with purpose and precision.",
-    images: ["/og-image.png"],
+    images: ["/ruchi-photo.jpg"],
   },
 };
 

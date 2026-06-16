@@ -8,8 +8,36 @@ import AchievementsSection from "@/components/portfolio/achievements-section";
 import ContactSection from "@/components/portfolio/contact-form";
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ruchi Sinha",
+    "jobTitle": "Full Stack Software Engineer",
+    "url": "https://portfolio-dicj.onrender.com",
+    "sameAs": [
+      "https://github.com/rsinha488",
+      "https://linkedin.com/in/ruchi-developer"
+    ],
+    "knowsAbout": [
+      "Software Engineering",
+      "Full-Stack Web Development",
+      "React.js",
+      "Next.js",
+      "Node.js",
+      "MongoDB",
+      "API Design",
+      "Voice AI Automation"
+    ],
+    "image": "https://portfolio-dicj.onrender.com/ruchi-photo.jpg",
+    "description": "Full Stack Software Engineer with 5 years of experience building scalable, high-performance web applications using React.js, Next.js, Node.js, and MongoDB."
+  };
+
   return (
     <main className="min-h-screen bg-white dark:bg-gray-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <Hero />
       <SkillsSection />

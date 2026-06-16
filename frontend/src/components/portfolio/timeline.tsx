@@ -24,6 +24,72 @@ const parseDescription = (desc: string): string[] => {
         .filter(s => s.length > 0);
 };
 
+const FALLBACK_TIMELINE = [
+    {
+        _id: "exp-1",
+        year: "Oct 2025 - May 2026",
+        title: "Software Engineer",
+        company: "Hestabit Technologies",
+        description: "Architected and developed a multi-tenant SaaS platform for AI voice agents, enabling automated campaign execution at scale. Designed a campaign orchestration engine supporting bulk calls, retry logic, scheduling, and real-time call tracking. Built a scalable Node.js and MongoDB backend handling agent workflows, session lifecycle management, and tenant-isolated data storage. Developed frontend dashboards using Next.js with server-side rendering for optimized performance and routing. Integrated VAPI for real-time conversational AI and dynamic voice agent configuration. Implemented event-driven architecture using Socket.IO for real-time monitoring of active calls. Designed RBAC and tenant isolation to enforce secure multi-user access. Reduced API latency by 25% by optimizing asynchronous processing.",
+        type: "experience",
+        order: 1
+    },
+    {
+        _id: "exp-2",
+        year: "Jul 2023 - Oct 2025",
+        title: "Software Engineer",
+        company: "Chetu India Pvt. Ltd",
+        description: "Developed role-specific dashboards for a Supply Chain Management System using Next.js, supporting Admin, Warehouse Owner, Sales, and Buyer personas. Built a real-time multiplayer gaming platform Mega2 using React.js featuring timed selection, live ball-spins, and dynamic win/loss. Developed Node.js RESTful APIs handling inventory workflows, stock validation, transaction logic, and game session management. Implemented real-time stock shortage alerts and player chat using Socket.IO. Designed and enforced granular RBAC across both projects. Managed complex game state and countdown timer logic using Redux. Integrated Redux Toolkit and Axios. Optimized performance using memoization, lazy loading, and code splitting.",
+        type: "experience",
+        order: 2
+    },
+    {
+        _id: "exp-3",
+        year: "May 2021 - Jul 2023",
+        title: "Software Developer",
+        company: "Integrated Personnel Connecting Tech",
+        description: "Developed and maintained RESTful APIs using Node.js and MongoDB for a Human Resource Management System (HRMS) platform. Built scalable backend modules for authentication, authorization, and employee lifecycle workflows. Developed a Next.js-based marketing and branding website for the HRMS platform, leveraging static site generation (SSG) for fast load times and improved search engine visibility. Integrated AWS S3 for secure, scalable file storage. Developed frontend modules using React.js and Redux-Saga for real-time data updates. Designed and maintained database schemas in MongoDB.",
+        type: "experience",
+        order: 3
+    },
+    {
+        _id: "edu-1",
+        year: "2018 - 2021",
+        title: "Master of Computer Applications (MCA)",
+        company: "Patliputra University",
+        description: "Completed MCA specializing in software engineering and web application architectures with an academic score of 8.86 / 10 CGPA.",
+        type: "education",
+        order: 4
+    },
+    {
+        _id: "edu-2",
+        year: "2015 - 2018",
+        title: "Bachelor of Computer Applications (BCA)",
+        company: "Aryabhatta Knowledge University",
+        description: "Completed BCA with a focus on core programming concepts, database management, and web development, achieving 9.14 / 10 CGPA.",
+        type: "education",
+        order: 5
+    },
+    {
+        _id: "edu-3",
+        year: "2013 - 2015",
+        title: "Intermediate (PCMB)",
+        company: "Kendriya Vidyalaya, Patna",
+        description: "Completed Intermediate education specializing in PCMB (Physics, Chemistry, Mathematics, Biology) under CBSE Board with a score of 68.2%.",
+        type: "education",
+        order: 6
+    },
+    {
+        _id: "edu-4",
+        year: "2013",
+        title: "Matriculation (10th)",
+        company: "Kendriya Vidyalaya, Patna",
+        description: "Completed Matriculation education under CBSE Board, achieving an academic score of 9.2 CGPA.",
+        type: "education",
+        order: 7
+    }
+];
+
 export default function Timeline() {
     const [activeTab, setActiveTab] = useState(0);
 
@@ -35,12 +101,13 @@ export default function Timeline() {
         },
     });
 
+    const displayTimeline = timeline?.length ? timeline : FALLBACK_TIMELINE;
+
     const experiences = useMemo(() => {
-        if (!timeline) return [];
-        return timeline
+        return displayTimeline
             .filter((item: any) => item.type === "experience")
             .sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
-    }, [timeline]);
+    }, [displayTimeline]);
 
     const activeExp = experiences[activeTab] || null;
     const bulletPoints = useMemo(() => {

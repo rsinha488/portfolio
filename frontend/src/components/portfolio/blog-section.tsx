@@ -8,6 +8,25 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
+const FALLBACK_BLOGS = [
+    {
+        _id: "blog-1",
+        title: "Building Multi-Tenant SaaS Platforms with Voice AI",
+        excerpt: "An in-depth look at architecting scalable voice agent platforms using Next.js, Node.js, and VAPI integration.",
+        createdAt: "2026-05-15T00:00:00.000Z",
+        slug: "building-multi-tenant-saas-platforms-voice-ai",
+        published: true
+    },
+    {
+        _id: "blog-2",
+        title: "Optimizing API Performance and Query Speeds in MERN Stack",
+        excerpt: "Practical strategies to cut database latency by 25% using memoization, query optimization, and asynchronous processing.",
+        createdAt: "2026-04-10T00:00:00.000Z",
+        slug: "optimizing-api-performance-mern-stack",
+        published: true
+    }
+];
+
 export default function BlogSection() {
     const { data: blogs, isLoading } = useQuery({
         queryKey: ["blogs"],
@@ -16,6 +35,8 @@ export default function BlogSection() {
             return res.data;
         },
     });
+
+    const displayBlogs = blogs?.length ? blogs : FALLBACK_BLOGS;
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -66,7 +87,7 @@ export default function BlogSection() {
         </section>
     );
 
-    if (!blogs?.length) return null;
+    if (!displayBlogs?.length) return null;
 
     return (
         <section id="blog" className="py-24 bg-white dark:bg-gray-900">
@@ -90,7 +111,7 @@ export default function BlogSection() {
                     viewport={{ once: true }}
                     className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
                 >
-                    {blogs.map((blog: any) => (
+                    {displayBlogs.map((blog: any) => (
                         <motion.div
                             key={blog._id}
                             variants={itemVariants}

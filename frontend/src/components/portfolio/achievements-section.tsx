@@ -23,6 +23,13 @@ function getAchievementIcon(text: string) {
     return <Award size={28} className="text-blue-500" />;
 }
 
+const FALLBACK_ACHIEVEMENTS = [
+    { _id: "ach-1", text: "25% reduction in API latency at Hestabit by implementing asynchronous processing and query optimization.", order: 1 },
+    { _id: "ach-2", text: "Successfully architected a multi-tenant SaaS platform from scratch, enabling isolated, secure access for multiple enterprise clients.", order: 2 },
+    { _id: "ach-3", text: "Delivered two full-stack production platforms at Chetu - a Supply Chain Management System and a real-time multiplayer gaming platform - across React.js, Next.js, and Node.js.", order: 3 },
+    { _id: "ach-4", text: "Achieved consistently high academic performance - 8.86 GPA (MCA) and 9.14 GPA (BCA).", order: 4 }
+];
+
 export default function AchievementsSection() {
     const { data: achievements, isLoading } = useQuery({
         queryKey: ["achievements"],
@@ -31,6 +38,8 @@ export default function AchievementsSection() {
             return res.data;
         },
     });
+
+    const displayAchievements = achievements?.length ? achievements : FALLBACK_ACHIEVEMENTS;
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -73,7 +82,7 @@ export default function AchievementsSection() {
         );
     }
 
-    if (!achievements || achievements.length === 0) {
+    if (!displayAchievements || displayAchievements.length === 0) {
         return null;
     }
 
@@ -103,7 +112,7 @@ export default function AchievementsSection() {
                     viewport={{ once: true }}
                     className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto"
                 >
-                    {achievements.map((item: any) => (
+                    {displayAchievements.map((item: any) => (
                         <motion.div
                             key={item._id}
                             variants={cardVariants}

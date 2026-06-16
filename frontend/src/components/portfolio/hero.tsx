@@ -9,15 +9,29 @@ import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "./brand-icons";
 
+const FALLBACK_PROFILE = {
+    name: "Ruchi Sinha",
+    title: "Full Stack Software Engineer",
+    bio: "Full Stack Software Engineer with 5 years of experience building scalable, high-performance web applications using React.js, Next.js, Node.js, and MongoDB. Proven track record in designing and delivering multi-tenant SaaS platforms, RESTful APIs, and AI-integrated backend systems. Experienced with real-time communication (Socket.IO), event-driven architecture, and cloud services (AWS S3). Adept at implementing Role-Based Access Control (RBAC), microservices patterns, and frontend performance optimization. Seeking to leverage expertise in full-stack development and system design to drive product excellence.",
+    avatar: "/ruchi-photo.jpg",
+    phone: "",
+    email: "ruchi.developer@outlook.com",
+    githubUrl: "https://github.com/rsinha488",
+    linkedinUrl: "https://linkedin.com/in/ruchi-developer",
+    twitterUrl: "",
+    resumeUrl: ""
+};
+
 export default function Hero() {
     const { data: profile } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => (await api.get("/profile")).data,
     });
 
-    const name = profile?.name || "Ruchi Sinha";
-    const title = profile?.title || "Building digital experiences";
-    const bio = profile?.bio || "Architecting scalable solutions with purpose and precision.";
+    const displayProfile = profile || FALLBACK_PROFILE;
+    const name = displayProfile.name;
+    const title = displayProfile.title;
+    const bio = displayProfile.bio;
 
     return (
         <section className="relative min-h-screen flex items-center justify-center bg-mesh-gradient overflow-hidden pt-24 pb-16">
@@ -37,8 +51,8 @@ export default function Hero() {
                         <span className="px-3 py-1 text-sm font-medium bg-blue-100 text-blue-600 rounded-full dark:bg-blue-900/30 dark:text-blue-400">
                             Available for hire
                         </span>
-                        
-                        {(profile?.avatar || profile?.name) && (
+
+                        {(displayProfile.avatar || displayProfile.name) && (
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -46,8 +60,8 @@ export default function Hero() {
                                 className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl ring-4 ring-blue-500/10 group mt-2"
                             >
                                 <Image
-                                    src={profile?.avatar || "/ruchi-photo.jpg"}
-                                    alt={profile?.name || "Ruchi Sinha"}
+                                    src={displayProfile.avatar || "/ruchi-photo.jpg"}
+                                    alt={displayProfile.name || "Ruchi Sinha"}
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                                     priority
@@ -76,23 +90,23 @@ export default function Hero() {
                         {bio}
                     </motion.p>
 
-                    {(profile?.email || profile?.phone) && (
+                    {(displayProfile.email || displayProfile.phone) && (
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.25 }}
                             className="flex flex-wrap justify-center gap-6 text-sm text-gray-500 dark:text-gray-400 font-medium"
                         >
-                            {profile?.email && (
-                                <a href={`mailto:${profile.email}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1">
+                            {displayProfile.email && (
+                                <a href={`mailto:${displayProfile.email}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1">
                                     <Mail size={16} />
-                                    <span>{profile.email}</span>
+                                    <span>{displayProfile.email}</span>
                                 </a>
                             )}
-                            {profile?.phone && (
-                                <a href={`tel:${profile.phone}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1">
+                            {displayProfile.phone && (
+                                <a href={`tel:${displayProfile.phone}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1">
                                     <Phone size={16} />
-                                    <span>{profile.phone}</span>
+                                    <span>{displayProfile.phone}</span>
                                 </a>
                             )}
                         </motion.div>
@@ -122,27 +136,27 @@ export default function Hero() {
                         transition={{ duration: 0.5, delay: 0.4 }}
                         className="flex items-center gap-6 text-gray-500 dark:text-gray-400 pt-8"
                     >
-                        {profile?.githubUrl && (
-                            <Link 
-                                href={profile.githubUrl} 
+                        {displayProfile.githubUrl && (
+                            <Link
+                                href={displayProfile.githubUrl}
                                 className="hover:text-gray-900 dark:hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 rounded-full p-1"
                                 aria-label="Visit my GitHub profile"
                             >
                                 <GithubIcon size={24} className="transition-transform group-hover:scale-110" />
                             </Link>
                         )}
-                        {profile?.linkedinUrl && (
-                            <Link 
-                                href={profile.linkedinUrl} 
+                        {displayProfile.linkedinUrl && (
+                            <Link
+                                href={displayProfile.linkedinUrl}
                                 className="hover:text-gray-900 dark:hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 rounded-full p-1"
                                 aria-label="Visit my LinkedIn profile"
                             >
                                 <LinkedinIcon size={24} className="transition-transform group-hover:scale-110" />
                             </Link>
                         )}
-                        {profile?.twitterUrl && (
-                            <Link 
-                                href={profile.twitterUrl} 
+                        {displayProfile.twitterUrl && (
+                            <Link
+                                href={displayProfile.twitterUrl}
                                 className="hover:text-gray-900 dark:hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 rounded-full p-1"
                                 aria-label="Visit my Twitter profile"
                             >

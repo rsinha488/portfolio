@@ -6,10 +6,14 @@ import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
 
 const FALLBACK_SKILLS = [
-    { _id: "1", category: "Frontend", items: ["React", "Next.js", "TypeScript", "TailwindCSS", "Redux", "Framer Motion"] },
-    { _id: "2", category: "Backend", items: ["Node.js", "Express", "NestJS", "GraphQL", "Socket.io"] },
-    { _id: "3", category: "Database", items: ["MongoDB", "PostgreSQL", "Redis", "Firebase"] },
-    { _id: "4", category: "DevOps", items: ["Docker", "AWS", "CI/CD", "Nginx", "Linux"] },
+    { _id: "1", category: "Languages", items: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"], order: 1 },
+    { _id: "2", category: "Frontend", items: ["React.js", "Next.js", "Redux", "Redux Toolkit", "Redux-Saga", "Tailwind CSS"], order: 2 },
+    { _id: "3", category: "Backend", items: ["Node.js", "Express.js", "RESTful API Design", "Event-Driven Architecture"], order: 3 },
+    { _id: "4", category: "Databases", items: ["MongoDB", "Mongoose ODM"], order: 4 },
+    { _id: "5", category: "System Design", items: ["Multi-Tenant Architecture", "RBAC", "Distributed Systems", "Microservices", "API Design"], order: 5 },
+    { _id: "6", category: "Real-Time & AI", items: ["Socket.IO", "VAPI (Voice AI)", "Conversational AI Integration"], order: 6 },
+    { _id: "7", category: "Cloud & DevOps", items: ["AWS S3", "Git", "GitHub", "Postman"], order: 7 },
+    { _id: "8", category: "Performance Optimization", items: ["Memoization", "Lazy Loading", "Code Splitting", "Async Processing", "Query Optimization"], order: 8 }
 ];
 
 export default function SkillsSection() {

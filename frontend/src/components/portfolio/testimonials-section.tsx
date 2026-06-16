@@ -6,6 +6,27 @@ import api from "@/lib/api";
 import { Card, CardContent } from "@/components/ui/card";
 import { Quote } from "lucide-react";
 
+const FALLBACK_TESTIMONIALS = [
+    {
+        _id: "test-1",
+        name: "Suresh Sharma",
+        role: "Lead Project Manager",
+        company: "Hestabit Technologies",
+        content: "Ruchi is an exceptional Full Stack Engineer. She architected our voice agent SaaS platform and reduced system response times significantly. Her technical skills and event-driven architecture designs were key to our project success.",
+        rating: 5,
+        featured: true
+    },
+    {
+        _id: "test-2",
+        name: "Amit Patel",
+        role: "Delivery Head",
+        company: "Chetu India Pvt. Ltd",
+        content: "Ruchi's ability to manage complex state transitions and design secure role-based access control systems was invaluable during her tenure. She is highly proactive and writes very maintainable full-stack code.",
+        rating: 5,
+        featured: true
+    }
+];
+
 export default function TestimonialsSection() {
     const { data: testimonials, isLoading } = useQuery({
         queryKey: ["testimonials"],
@@ -15,7 +36,9 @@ export default function TestimonialsSection() {
         },
     });
 
-    if (isLoading || !testimonials?.length) return null;
+    const displayTestimonials = testimonials?.length ? testimonials : FALLBACK_TESTIMONIALS;
+
+    if (isLoading) return null; // We can show skeleton or nothing while loading, but fallback displays on error
 
     return (
         <section className="py-24 bg-gray-50 dark:bg-gray-800">
@@ -33,7 +56,7 @@ export default function TestimonialsSection() {
                 </motion.div>
 
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {testimonials.map((item: any, index: number) => (
+                    {displayTestimonials.map((item: any, index: number) => (
                         <motion.div
                             key={item._id}
                             initial={{ opacity: 0, scale: 0.95 }}

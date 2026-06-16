@@ -147,6 +147,79 @@ const isPlaceholderImage = (url?: string) => {
     return !url || url.includes("ruchi-photo.jpg") || url.includes("placeholder");
 };
 
+const FALLBACK_PROJECTS = [
+    {
+        _id: "proj-1",
+        title: "AI-Powered Insurance Policy Assistant",
+        slug: "ai-powered-insurance-policy-assistant",
+        description: "RAG-based self-service chat assistant where employees query their enrolled insurance policy documents and get cited answers.",
+        technologies: ["Next.js", "Node.js", "Express", "PostgreSQL", "Prisma ORM", "pgvector", "OpenAI API", "Embeddings", "Semantic Search", "Prompt Engineering", "AI Guardrails", "Socket.IO", "Multi-tenant", "RBAC"],
+        featured: true,
+        order: 1,
+        images: [{ url: "/ruchi-photo.jpg", alt: "AI-Powered Insurance Policy Assistant" }]
+    },
+    {
+        _id: "proj-2",
+        title: "AI Voice Agent & Campaign Platform",
+        slug: "ai-voice-agent-campaign-platform",
+        description: "SaaS platform for businesses to create AI voice agents, run outbound calling campaigns with batch processing, and collect structured feedback.",
+        technologies: ["Next.js", "Node.js", "MongoDB", "VAPI", "Twilio", "Prompt Engineering", "Context Injection", "Cron Jobs", "Socket.IO", "Multi-tenant", "RBAC"],
+        featured: true,
+        order: 2,
+        images: [{ url: "/ruchi-photo.jpg", alt: "AI Voice Agent & Campaign Platform" }]
+    },
+    {
+        _id: "proj-3",
+        title: "HRMS Branding and marketing Site",
+        slug: "hrms-branding-marketing-site-ipsl",
+        description: "Its a marketing and brandinding website for HRMS application",
+        technologies: ["Next.js", "MongoDB", "Node.js", "React.js"],
+        featured: true,
+        order: 3,
+        images: [{ url: "/ruchi-photo.jpg", alt: "HRMS Branding and Marketing Site" }]
+    },
+    {
+        _id: "proj-4",
+        title: "SCMS (Supply Chain Management System)",
+        slug: "scms-chetu-india-noida",
+        description: "Enterprise supply chain management platform supporting inventory operations, procurement workflows, supplier management, and role-based access control with optimized performance and scalable UI architecture.",
+        technologies: ["React.js", "Next.js", "TypeScript", "Redux Toolkit", "Tailwind CSS", "Axios", "REST APIs", "Node.js", "MongoDB"],
+        featured: true,
+        order: 4,
+        images: [{ url: "/ruchi-photo.jpg", alt: "SCMS Chetu India Noida" }]
+    },
+    {
+        _id: "proj-5",
+        title: "HRMS Application",
+        slug: "hrms-application-ipsl-mumbai",
+        description: "Full-stack HR management platform handling employee lifecycle operations, leave management, authentication, document storage, and administrative workflows.",
+        technologies: ["React.js", "Next.js", "TypeScript", "Node.js", "Express.js", "MongoDB", "Redux Saga", "AWS S3", "REST APIs"],
+        featured: false,
+        order: 5,
+        images: [{ url: "/ruchi-photo.jpg", alt: "HRMS Application IPSL Mumbai" }]
+    },
+    {
+        _id: "proj-6",
+        title: "Real-Time Gaming Platform (Mega Ball Games)",
+        slug: "real-time-gaming-mega-ball-games",
+        description: "Real-time event-driven platform supporting live game updates, synchronized user interactions, instant notifications, and high-frequency state updates.",
+        technologies: ["React.js", "Next.js", "TypeScript", "Socket.IO", "Redux Toolkit", "Tailwind CSS", "Node.js", "REST APIs"],
+        featured: false,
+        order: 6,
+        images: [{ url: "/ruchi-photo.jpg", alt: "Real-Time Gaming Mega Ball Games" }]
+    },
+    {
+        _id: "proj-7",
+        title: "Cyber Analytics Dashboard",
+        slug: "cyber-analytics-dashboard-chetu-india-noida",
+        description: "Analytics and reporting platform for monitoring social media performance, engagement trends, and retailer insights through interactive dashboards and visualization modules.",
+        technologies: ["React.js", "Next.js", "TypeScript", "Redux Toolkit", "Tailwind CSS", "REST APIs", "Chart Libraries"],
+        featured: false,
+        order: 7,
+        images: [{ url: "/ruchi-photo.jpg", alt: "Cyber Analytics Dashboard" }]
+    }
+];
+
 export default function ProjectsGrid() {
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 300);
@@ -161,22 +234,24 @@ export default function ProjectsGrid() {
         },
     });
 
+    const displayProjects = projects?.length ? projects : FALLBACK_PROJECTS;
+
     const categories = useMemo(() => {
-        if (!projects) return ["All"];
+        if (!displayProjects) return ["All"];
         const cats = new Set<string>();
-        projects.forEach((p: any) => p.technologies?.forEach((t: string) => cats.add(t)));
+        displayProjects.forEach((p: any) => p.technologies?.forEach((t: string) => cats.add(t)));
         return ["All", ...Array.from(cats)].slice(0, 8); // Limit for UI cleanliness
-    }, [projects]);
+    }, [displayProjects]);
 
     const filteredProjects = useMemo(() => {
-        if (!projects) return [];
-        return projects.filter((p: any) => {
+        if (!displayProjects) return [];
+        return displayProjects.filter((p: any) => {
             const matchesSearch = p.title.toLowerCase().includes(debouncedSearch.toLowerCase()) || 
                                  p.description.toLowerCase().includes(debouncedSearch.toLowerCase());
             const matchesCategory = selectedCategory === "All" || p.technologies?.includes(selectedCategory);
             return matchesSearch && matchesCategory;
         });
-    }, [projects, debouncedSearch, selectedCategory]);
+    }, [displayProjects, debouncedSearch, selectedCategory]);
 
     const containerVariants = {
         hidden: { opacity: 0 },

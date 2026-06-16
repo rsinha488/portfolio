@@ -84,7 +84,7 @@ export default function EducationSection() {
     const displayTimeline = timeline?.length ? timeline : FALLBACK_TIMELINE;
 
     const education = displayTimeline
-        ? displayTimeline.filter((item: any) => item.type === "education").sort((a: any, b: any) => a.order - b.order)
+        ? displayTimeline.filter((item: any) => item.type === "education").sort((a: any, b: any) => (a.order || 0) - (b.order || 0))
         : [];
 
     const containerVariants = {

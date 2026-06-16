@@ -43,7 +43,6 @@ const projectSchema = new mongoose.Schema({
     }
 });
 
-projectSchema.index({ slug: 1 });
 projectSchema.index({ createdAt: -1 });
 projectSchema.index({ featured: 1 });
 

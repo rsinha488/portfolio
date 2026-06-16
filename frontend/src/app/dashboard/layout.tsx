@@ -17,6 +17,7 @@ import {
     Users,
     Code2,
     UserCircle,
+    Award,
 } from "lucide-react";
 
 const navItems = [
@@ -24,6 +25,7 @@ const navItems = [
     { href: "/dashboard/profile", label: "Hero & Profile", icon: UserCircle },
     { href: "/dashboard/projects", label: "Projects", icon: FolderKanban },
     { href: "/dashboard/timeline", label: "Journey", icon: Briefcase },
+    { href: "/dashboard/achievements", label: "Achievements", icon: Award },
     { href: "/dashboard/skills", label: "Skills", icon: Code2 },
     { href: "/dashboard/blogs", label: "Blogs", icon: FileText },
     { href: "/dashboard/testimonials", label: "Testimonials", icon: Star },

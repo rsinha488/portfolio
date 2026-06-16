@@ -23,17 +23,23 @@ dotenv.config({ path: '.env.development' });
 dotenv.config({ path: '../.env' });
 
 const LOCAL_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/portfolio';
-let PROD_URI = process.env.MONGO_CLUSTER_URL;
+const BASE_PROD_URI = process.env.MONGO_CLUSTER_URL;
 
-if (!PROD_URI) {
+if (!BASE_PROD_URI) {
     console.error("Error: MONGO_CLUSTER_URL is not defined in root .env file!");
     process.exit(1);
 }
 
-// Append portfolio database name if not present
-if (!PROD_URI.includes('/portfolio')) {
-    PROD_URI = PROD_URI.endsWith('/') ? `${PROD_URI}portfolio` : `${PROD_URI}/portfolio`;
-}
+// Define the two possible production URIs (with portfolio DB name, and default /test)
+const PROD_URI_PORTFOLIO = BASE_PROD_URI.includes('/portfolio') 
+    ? BASE_PROD_URI 
+    : (BASE_PROD_URI.endsWith('/') ? `${BASE_PROD_URI}portfolio` : `${BASE_PROD_URI}/portfolio`);
+
+const PROD_URI_TEST = BASE_PROD_URI.includes('/test')
+    ? BASE_PROD_URI
+    : (BASE_PROD_URI.endsWith('/') ? `${BASE_PROD_URI}test` : `${BASE_PROD_URI}/test`);
+
+const PROD_URI_DEFAULT = BASE_PROD_URI; // Default if no DB is appended (connects to test by default)
 
 async function migrate() {
     let localData = {};
@@ -71,41 +77,51 @@ async function migrate() {
         await mongoose.disconnect();
         console.log('Disconnected from Local MongoDB.');
 
-        // 2. Connect to Production MongoDB Atlas
-        console.log('\nConnecting to Production MongoDB Atlas at:', PROD_URI.replace(/:([^@]+)@/, ':****@')); // Hide password in logs
-        await mongoose.connect(PROD_URI);
-        console.log('Connected to Production MongoDB. Clearing production collections...');
+        // Helper function to write data to a target database URI
+        const writeToTarget = async (targetUri, dbLabel) => {
+            console.log(`\n--- Writing to Production DB (${dbLabel}) ---`);
+            const displayUri = targetUri.replace(/:([^@]+)@/, ':****@');
+            console.log('Connecting to:', displayUri);
+            
+            await mongoose.connect(targetUri);
+            console.log(`Connected. Clearing ${dbLabel} collections...`);
+            
+            await Profile.deleteMany({});
+            await Skill.deleteMany({});
+            await Timeline.deleteMany({});
+            await Project.deleteMany({});
+            await Achievement.deleteMany({});
+            await Testimonial.deleteMany({});
+            await Contact.deleteMany({});
+            await User.deleteMany({});
+            await Blog.deleteMany({});
+            console.log('Collections cleared.');
 
-        // Clear production collections
-        await Profile.deleteMany({});
-        await Skill.deleteMany({});
-        await Timeline.deleteMany({});
-        await Project.deleteMany({});
-        await Achievement.deleteMany({});
-        await Testimonial.deleteMany({});
-        await Contact.deleteMany({});
-        await User.deleteMany({});
-        await Blog.deleteMany({});
-        console.log('Cleared all collections in production.');
+            // Insert documents
+            if (localData.profiles.length > 0) await Profile.insertMany(localData.profiles);
+            if (localData.skills.length > 0) await Skill.insertMany(localData.skills);
+            if (localData.timeline.length > 0) await Timeline.insertMany(localData.timeline);
+            if (localData.projects.length > 0) await Project.insertMany(localData.projects);
+            if (localData.achievements.length > 0) await Achievement.insertMany(localData.achievements);
+            if (localData.testimonials.length > 0) await Testimonial.insertMany(localData.testimonials);
+            if (localData.contacts.length > 0) await Contact.insertMany(localData.contacts);
+            if (localData.users.length > 0) await User.insertMany(localData.users);
+            if (localData.blogs.length > 0) await Blog.insertMany(localData.blogs);
 
-        // Insert local documents into production
-        if (localData.profiles.length > 0) await Profile.insertMany(localData.profiles);
-        if (localData.skills.length > 0) await Skill.insertMany(localData.skills);
-        if (localData.timeline.length > 0) await Timeline.insertMany(localData.timeline);
-        if (localData.projects.length > 0) await Project.insertMany(localData.projects);
-        if (localData.achievements.length > 0) await Achievement.insertMany(localData.achievements);
-        if (localData.testimonials.length > 0) await Testimonial.insertMany(localData.testimonials);
-        if (localData.contacts.length > 0) await Contact.insertMany(localData.contacts);
-        if (localData.users.length > 0) await User.insertMany(localData.users);
-        if (localData.blogs.length > 0) await Blog.insertMany(localData.blogs);
+            console.log(`Success: All data written to ${dbLabel} database.`);
+            await mongoose.disconnect();
+            console.log(`Disconnected from ${dbLabel}.`);
+        };
 
-        console.log('All local data successfully written to production MongoDB Atlas!');
+        // Write to all target production databases
+        await writeToTarget(PROD_URI_PORTFOLIO, 'portfolio');
+        await writeToTarget(PROD_URI_TEST, 'test');
+        await writeToTarget(PROD_URI_DEFAULT, 'default/test-fallback');
+
+        console.log('\nMigration completed successfully for all database scopes!');
 
     } catch (err) {
         console.error('Migration failed:', err);
-    } finally {
-        await mongoose.disconnect();
-        console.log('Disconnected from Production MongoDB Atlas.');
     }
 }
 

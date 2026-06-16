@@ -140,7 +140,7 @@ export default function DashboardPage() {
             {/* Stats Grid */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {/* Total Views Card */}
-                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-blue-950/20 border-gray-100 dark:border-gray-800/80 bg-white dark:bg-gray-850">
+                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-blue-950/20 border-border bg-card text-card-foreground">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-semibold uppercase tracking-wider text-gray-500">
                             Total Visits
@@ -161,7 +161,7 @@ export default function DashboardPage() {
                 </Card>
 
                 {/* Total Projects Card */}
-                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-emerald-950/20 border-gray-100 dark:border-gray-800/80 bg-white dark:bg-gray-850">
+                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-emerald-950/20 border-border bg-card text-card-foreground">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-semibold uppercase tracking-wider text-gray-500">
                             Projects
@@ -182,7 +182,7 @@ export default function DashboardPage() {
                 </Card>
 
                 {/* Total Contact Messages */}
-                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-purple-950/20 border-gray-100 dark:border-gray-800/80 bg-white dark:bg-gray-850">
+                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-purple-950/20 border-border bg-card text-card-foreground">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-semibold uppercase tracking-wider text-gray-500">
                             Inquiries
@@ -203,7 +203,7 @@ export default function DashboardPage() {
                 </Card>
 
                 {/* Total Blogs Card */}
-                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-teal-950/20 border-gray-100 dark:border-gray-800/80 bg-white dark:bg-gray-850">
+                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-teal-950/20 border-border bg-card text-card-foreground">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-semibold uppercase tracking-wider text-gray-500">
                             Blog Posts
@@ -223,7 +223,7 @@ export default function DashboardPage() {
                 </Card>
 
                 {/* Testimonials Card */}
-                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-amber-950/20 border-gray-100 dark:border-gray-800/80 bg-white dark:bg-gray-850">
+                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-amber-950/20 border-border bg-card text-card-foreground">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-semibold uppercase tracking-wider text-gray-500">
                             Testimonials
@@ -243,7 +243,7 @@ export default function DashboardPage() {
                 </Card>
 
                 {/* Total Skills Card */}
-                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-rose-950/20 border-gray-100 dark:border-gray-800/80 bg-white dark:bg-gray-850">
+                <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-rose-950/20 border-border bg-card text-card-foreground">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-semibold uppercase tracking-wider text-gray-500">
                             Skills
@@ -266,7 +266,7 @@ export default function DashboardPage() {
             {/* Layout Grid */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
                 {/* Visual Premium Analytics Chart */}
-                <Card className="col-span-4 border-gray-100 dark:border-gray-800/80 bg-white dark:bg-gray-850">
+                <Card className="col-span-4 border-border bg-card text-card-foreground">
                     <CardHeader>
                         <CardTitle className="text-base font-bold flex items-center gap-2">
                             <span>Traffic Overview</span>
@@ -333,7 +333,7 @@ export default function DashboardPage() {
                 </Card>
 
                 {/* Live Activity Feed */}
-                <Card className="col-span-3 border-gray-100 dark:border-gray-800/80 bg-white dark:bg-gray-850">
+                <Card className="col-span-3 border-border bg-card text-card-foreground">
                     <CardHeader>
                         <CardTitle className="text-base font-bold">Recent Activity</CardTitle>
                     </CardHeader>

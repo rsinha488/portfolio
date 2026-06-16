@@ -163,12 +163,20 @@ export default function Timeline() {
                 {/* Dashboard layout */}
                 <div className="grid md:grid-cols-10 gap-8 items-start">
                     {/* Left: Tab Menu */}
-                    <div className="md:col-span-3 flex md:flex-col overflow-x-auto md:overflow-x-visible pb-3 md:pb-0 scrollbar-none border-b md:border-b-0 border-slate-200 dark:border-slate-800/80 md:border-l border-slate-200 dark:border-slate-800/80 gap-1 pr-1">
+                    <div 
+                        role="tablist"
+                        aria-label="Professional Journey Experience Tabs"
+                        className="md:col-span-3 flex md:flex-col overflow-x-auto md:overflow-x-visible pb-3 md:pb-0 scrollbar-none border-b md:border-b-0 border-slate-200 dark:border-slate-800/80 md:border-l border-slate-200 dark:border-slate-800/80 gap-1 pr-1"
+                    >
                         {experiences.map((exp: TimelineItem, index: number) => {
                             const isActive = activeTab === index;
                             return (
                                 <button
                                     key={exp._id}
+                                    id={`tab-${exp._id}`}
+                                    role="tab"
+                                    aria-selected={isActive}
+                                    aria-controls={`panel-${exp._id}`}
                                     onClick={() => setActiveTab(index)}
                                     className={`relative px-5 py-4 text-left transition-all duration-300 rounded-lg md:rounded-r-lg md:rounded-l-none outline-none flex flex-col items-start gap-1 shrink-0 ${
                                         isActive 
@@ -205,6 +213,9 @@ export default function Timeline() {
                             {activeExp && (
                                 <motion.div
                                     key={activeExp._id}
+                                    id={`panel-${activeExp._id}`}
+                                    role="tabpanel"
+                                    aria-labelledby={`tab-${activeExp._id}`}
                                     initial={{ opacity: 0, x: 15, y: 5 }}
                                     animate={{ opacity: 1, x: 0, y: 0 }}
                                     exit={{ opacity: 0, x: -15, y: 5 }}

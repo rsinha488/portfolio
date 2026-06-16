@@ -137,19 +137,23 @@ export default function ContactSection() {
                                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-2">
+                                                <label htmlFor="name" className="sr-only">Your Name</label>
                                                 <Input id="name" placeholder="Name" {...register("name")} disabled={loading} aria-invalid={errors.name ? "true" : "false"} />
                                                 {errors.name && <p className="text-xs text-red-500" role="alert">{errors.name.message}</p>}
                                             </div>
                                             <div className="space-y-2">
+                                                <label htmlFor="email" className="sr-only">Your Email</label>
                                                 <Input id="email" placeholder="Email" {...register("email")} disabled={loading} aria-invalid={errors.email ? "true" : "false"} />
                                                 {errors.email && <p className="text-xs text-red-500" role="alert">{errors.email.message}</p>}
                                             </div>
                                         </div>
                                         <div className="space-y-2">
+                                            <label htmlFor="subject" className="sr-only">Message Subject</label>
                                             <Input id="subject" placeholder="Subject" {...register("subject")} disabled={loading} aria-invalid={errors.subject ? "true" : "false"} />
                                             {errors.subject && <p className="text-xs text-red-500" role="alert">{errors.subject.message}</p>}
                                         </div>
                                         <div className="space-y-2">
+                                            <label htmlFor="message" className="sr-only">Message Content</label>
                                             <Textarea id="message" placeholder="Message" className="min-h-[120px]" {...register("message")} disabled={loading} aria-invalid={errors.message ? "true" : "false"} />
                                             {errors.message && <p className="text-xs text-red-500" role="alert">{errors.message.message}</p>}
                                         </div>

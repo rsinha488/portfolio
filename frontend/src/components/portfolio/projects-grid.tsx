@@ -333,20 +333,21 @@ export default function ProjectsGrid() {
                                 onChange={(e) => setSearch(e.target.value)}
                             />
                         </div>
-                        <div className="flex flex-wrap justify-center gap-2">
+                        <div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Project category filters">
                             {categories.map((cat) => (
-                                <Badge
+                                <button
                                     key={cat}
-                                    variant={selectedCategory === cat ? "default" : "outline"}
-                                    className={`cursor-pointer px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                                    type="button"
+                                    aria-pressed={selectedCategory === cat}
+                                    className={`cursor-pointer px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none ${
                                         selectedCategory === cat 
-                                        ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20" 
-                                        : "hover:border-blue-500/50 hover:text-blue-500 bg-transparent text-gray-500"
+                                        ? "bg-blue-600 text-white border-transparent shadow-lg shadow-blue-500/20 dark:bg-blue-500" 
+                                        : "hover:border-blue-500/50 hover:text-blue-500 bg-transparent text-gray-500 border-gray-200 dark:border-gray-700"
                                     }`}
                                     onClick={() => setSelectedCategory(cat)}
                                 >
                                     {cat}
-                                </Badge>
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -367,8 +368,21 @@ export default function ProjectsGrid() {
                             layout
                         >
                             <Card 
-                                className="h-full flex flex-col overflow-hidden border-gray-100 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500 group cursor-pointer"
+                                className="h-full flex flex-col overflow-hidden border-gray-100 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500 group cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none"
                                 onClick={() => setSelectedProject(project)}
+                                role="button"
+                                tabIndex={0}
+                                aria-haspopup="dialog"
+                                aria-label={`Project: ${project.title}. Click to view details.`}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        const target = e.target as HTMLElement;
+                                        if (!target.closest("button") && !target.closest("a")) {
+                                            e.preventDefault();
+                                            setSelectedProject(project);
+                                        }
+                                    }
+                                }}
                             >
                                 <div className="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-800 border-b border-gray-50 dark:border-gray-800">
                                     {!isPlaceholderImage(project.images?.[0]?.url) ? (

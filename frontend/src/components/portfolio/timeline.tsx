@@ -28,7 +28,7 @@ export default function Timeline() {
     const [activeTab, setActiveTab] = useState(0);
 
     const { data: timeline, isLoading } = useQuery({
-        queryKey: ["public-timeline"],
+        queryKey: ["timeline"],
         queryFn: async () => {
             const res = await api.get("/timeline");
             return res.data;

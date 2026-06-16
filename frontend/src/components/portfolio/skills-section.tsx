@@ -14,7 +14,7 @@ const FALLBACK_SKILLS = [
 
 export default function SkillsSection() {
     const { data: skills } = useQuery({
-        queryKey: ["public-skills"],
+        queryKey: ["skills"],
         queryFn: async () => (await api.get("/skills")).data,
     });
 

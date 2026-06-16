@@ -1,15 +1,31 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { LayoutDashboard } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
+import api from "@/lib/api";
 
 export default function Navbar() {
     const { user, loading } = useAuth();
+
+    useEffect(() => {
+        const hasVisited = sessionStorage.getItem('portfolio_visited_session');
+        if (!hasVisited) {
+            const logVisit = async () => {
+                try {
+                    await api.post('/analytics/visit');
+                    sessionStorage.setItem('portfolio_visited_session', 'true');
+                } catch (err) {
+                    console.error('Failed to log visit:', err);
+                }
+            };
+            logVisit();
+        }
+    }, []);
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,

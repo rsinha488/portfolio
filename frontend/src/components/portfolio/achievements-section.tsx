@@ -25,7 +25,7 @@ function getAchievementIcon(text: string) {
 
 export default function AchievementsSection() {
     const { data: achievements, isLoading } = useQuery({
-        queryKey: ["public-achievements"],
+        queryKey: ["achievements"],
         queryFn: async () => {
             const res = await api.get("/achievements");
             return res.data;

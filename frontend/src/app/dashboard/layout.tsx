@@ -36,11 +36,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !user) router.push('/login');
+        if (!loading) {
+            if (!user) {
+                router.push('/login');
+            } else if (user.role !== 'admin') {
+                router.push('/');
+            }
+        }
     }, [user, loading, router]);
 
     if (loading) return <div className="flex h-screen items-center justify-center">Loading...</div>;
-    if (!user) return null;
+    if (!user || user.role !== 'admin') return null;
 
     return (
         <div className="flex h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">

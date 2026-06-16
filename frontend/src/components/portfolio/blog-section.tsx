@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function BlogSection() {
     const { data: blogs, isLoading } = useQuery({
-        queryKey: ["public-blogs"],
+        queryKey: ["blogs"],
         queryFn: async () => {
             const res = await api.get("/blogs");
             return res.data;

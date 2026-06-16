@@ -74,14 +74,14 @@ export default function BlogsPage() {
     const queryClient = useQueryClient();
 
     const { data: blogs, isLoading } = useQuery({
-        queryKey: ["blogs-admin"],
+        queryKey: ["blogs"],
         queryFn: async () => (await api.get("/blogs/all")).data as Blog[],
         enabled: !!user, // Wait for user to be loaded
     });
 
     const deleteMutation = useMutation({
         mutationFn: async (id: string) => api.delete(`/blogs/${id}`),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["blogs-admin"] }),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["blogs"] }),
     });
 
     if (isLoading) return <div>Loading...</div>;
@@ -102,7 +102,7 @@ export default function BlogsPage() {
                         </DialogHeader>
                         <BlogForm initialData={editing} onSuccess={() => {
                             setOpen(false); setEditing(null);
-                            queryClient.invalidateQueries({ queryKey: ["blogs-admin"] });
+                            queryClient.invalidateQueries({ queryKey: ["blogs"] });
                         }} />
                     </DialogContent>
                 </Dialog>

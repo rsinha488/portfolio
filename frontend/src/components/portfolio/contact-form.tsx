@@ -25,7 +25,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 function ContactInfo() {
     const { data: profile } = useQuery({
-        queryKey: ["public-profile"],
+        queryKey: ["profile"],
         queryFn: async () => (await api.get("/profile")).data,
     });
 

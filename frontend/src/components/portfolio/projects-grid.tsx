@@ -154,7 +154,7 @@ export default function ProjectsGrid() {
     const [selectedProject, setSelectedProject] = useState<any | null>(null);
 
     const { data: projects, isLoading } = useQuery({
-        queryKey: ["public-projects"],
+        queryKey: ["projects"],
         queryFn: async () => {
             const res = await api.get("/projects");
             return res.data;

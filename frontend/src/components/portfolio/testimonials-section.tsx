@@ -8,7 +8,7 @@ import { Quote } from "lucide-react";
 
 export default function TestimonialsSection() {
     const { data: testimonials, isLoading } = useQuery({
-        queryKey: ["public-testimonials"],
+        queryKey: ["testimonials"],
         queryFn: async () => {
             const res = await api.get("/testimonials");
             return res.data;

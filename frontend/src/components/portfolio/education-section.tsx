@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EducationSection() {
     const { data: timeline, isLoading } = useQuery({
-        queryKey: ["public-timeline"],
+        queryKey: ["timeline"],
         queryFn: async () => {
             const res = await api.get("/timeline");
             return res.data;

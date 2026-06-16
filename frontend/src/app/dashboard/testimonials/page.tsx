@@ -86,13 +86,13 @@ export default function TestimonialsPage() {
     const queryClient = useQueryClient();
 
     const { data: testimonials, isLoading } = useQuery({
-        queryKey: ["testimonials-admin"],
+        queryKey: ["testimonials"],
         queryFn: async () => (await api.get("/testimonials/all")).data as Testimonial[],
     });
 
     const deleteMutation = useMutation({
         mutationFn: async (id: string) => api.delete(`/testimonials/${id}`),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["testimonials-admin"] }),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["testimonials"] }),
     });
 
     if (isLoading) return <div>Loading...</div>;
@@ -113,7 +113,7 @@ export default function TestimonialsPage() {
                         </DialogHeader>
                         <TestimonialForm initialData={editing} onSuccess={() => {
                             setOpen(false); setEditing(null);
-                            queryClient.invalidateQueries({ queryKey: ["testimonials-admin"] });
+                            queryClient.invalidateQueries({ queryKey: ["testimonials"] });
                         }} />
                     </DialogContent>
                 </Dialog>

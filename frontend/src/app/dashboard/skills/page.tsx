@@ -89,13 +89,13 @@ export default function SkillsPage() {
     const queryClient = useQueryClient();
 
     const { data: skills, isLoading } = useQuery({
-        queryKey: ["skills-admin"],
+        queryKey: ["skills"],
         queryFn: async () => (await api.get("/skills")).data as Skill[],
     });
 
     const deleteMutation = useMutation({
         mutationFn: async (id: string) => api.delete(`/skills/${id}`),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["skills-admin"] }),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["skills"] }),
     });
 
     if (isLoading) return <div>Loading...</div>;
@@ -114,7 +114,7 @@ export default function SkillsPage() {
                         </DialogHeader>
                         <SkillForm initialData={editing} onSuccess={() => {
                             setOpen(false); setEditing(null);
-                            queryClient.invalidateQueries({ queryKey: ["skills-admin"] });
+                            queryClient.invalidateQueries({ queryKey: ["skills"] });
                         }} />
                     </DialogContent>
                 </Dialog>

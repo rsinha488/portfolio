@@ -11,7 +11,7 @@ import { GithubIcon, LinkedinIcon, TwitterIcon } from "./brand-icons";
 
 export default function Hero() {
     const { data: profile } = useQuery({
-        queryKey: ["public-profile"],
+        queryKey: ["profile"],
         queryFn: async () => (await api.get("/profile")).data,
     });
 

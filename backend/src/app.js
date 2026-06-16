@@ -105,6 +105,7 @@ import userRoutes from './routes/userRoutes.js';
 import skillRoutes from './routes/skillRoutes.js';
 import profileRoutes from './routes/profileRoutes.js';
 import achievementRoutes from './routes/achievementRoutes.js';
+import analyticsRoutes from './routes/analyticsRoutes.js';
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -118,6 +119,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/achievements', achievementRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome to the My Portfolio API' });

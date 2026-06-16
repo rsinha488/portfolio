@@ -19,10 +19,11 @@ const profileData = {
     avatar: "/ruchi-photo.jpg",
     phone: "",
     email: "ruchi.developer@outlook.com",
-    githubUrl: "https://github.com",
-    linkedinUrl: "https://linkedin.com",
+    githubUrl: "https://github.com/rsinha488",
+    linkedinUrl: "https://linkedin.com/in/ruchi-developer",
     twitterUrl: "",
-    resumeUrl: ""
+    resumeUrl: "",
+    location: "Noida, Uttar Pradesh, India"
 };
 
 const skillsData = [

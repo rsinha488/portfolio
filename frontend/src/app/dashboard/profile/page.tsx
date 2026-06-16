@@ -25,6 +25,20 @@ interface Profile {
     location?: string;
 }
 
+const FALLBACK_PROFILE: Profile = {
+    name: "Ruchi Sinha",
+    title: "Full Stack Software Engineer",
+    bio: "Full Stack Software Engineer with 5 years of experience building scalable, high-performance web applications using React.js, Next.js, Node.js, and MongoDB. Proven track record in designing and delivering multi-tenant SaaS platforms, RESTful APIs, and AI-integrated backend systems. Experienced with real-time communication (Socket.IO), event-driven architecture, and cloud services (AWS S3). Adept at implementing Role-Based Access Control (RBAC), microservices patterns, and frontend performance optimization. Seeking to leverage expertise in full-stack development and system design to drive product excellence.",
+    avatar: "/ruchi-photo.jpg",
+    phone: "",
+    email: "ruchi.developer@outlook.com",
+    githubUrl: "https://github.com/rsinha488",
+    linkedinUrl: "https://linkedin.com/in/ruchi-developer",
+    twitterUrl: "",
+    resumeUrl: "",
+    location: "Noida, Uttar Pradesh, India"
+};
+
 export default function ProfilePage() {
     const { user } = useAuth();
     const isAdmin = user?.role === "admin";
@@ -38,7 +52,11 @@ export default function ProfilePage() {
     const { register, handleSubmit, reset } = useForm<Profile>();
 
     useEffect(() => {
-        if (profile) reset(profile);
+        if (profile) {
+            reset(profile);
+        } else {
+            reset(FALLBACK_PROFILE);
+        }
     }, [profile, reset]);
 
     const mutation = useMutation({
@@ -80,10 +98,14 @@ export default function ProfilePage() {
                                 <Input id="title" {...register("title", { required: true })} disabled={!isAdmin} />
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-3 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="email">Contact Email</Label>
                                 <Input id="email" {...register("email")} disabled={!isAdmin} />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="phone">Contact Phone</Label>
+                                <Input id="phone" {...register("phone")} disabled={!isAdmin} />
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="location">Location</Label>

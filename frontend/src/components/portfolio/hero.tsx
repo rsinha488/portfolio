@@ -19,7 +19,8 @@ const FALLBACK_PROFILE = {
     githubUrl: "https://github.com/rsinha488",
     linkedinUrl: "https://linkedin.com/in/ruchi-developer",
     twitterUrl: "",
-    resumeUrl: ""
+    resumeUrl: "",
+    location: "Noida, Uttar Pradesh, India"
 };
 
 export default function Hero() {

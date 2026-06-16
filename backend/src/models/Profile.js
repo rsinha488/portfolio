@@ -44,6 +44,10 @@ const profileSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    location: {
+        type: String,
+        default: ''
+    },
     updatedAt: {
         type: Date,
         default: Date.now

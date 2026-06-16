@@ -9,7 +9,7 @@ const profileSchema = z.object({
     title: z.string().min(2),
     bio: z.string().min(10),
     avatar: z.string().optional().or(z.literal('')),
-    cvUrl: z.string().url().optional().or(z.literal('')),
+    resumeUrl: z.string().url().optional().or(z.literal('')),
     email: z.string().email().optional().or(z.literal('')),
     location: z.string().optional().or(z.literal('')),
     phone: z.string().optional().or(z.literal('')),

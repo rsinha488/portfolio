@@ -102,12 +102,14 @@ export default function Navbar() {
                             key={item.id}
                             href={`#${item.id}`}
                             onClick={(e) => {
+                                e.preventDefault();
                                 const target = document.getElementById(item.id);
                                 if (target) {
                                     target.setAttribute('tabindex', '-1');
-                                    setTimeout(() => {
-                                        target.focus({ preventScroll: true });
-                                    }, 100);
+                                    target.scrollIntoView({ behavior: "smooth" });
+                                    target.focus({ preventScroll: true });
+                                    window.history.pushState(null, "", `#${item.id}`);
+                                    setActiveSection(item.id);
                                 }
                             }}
                             className={`relative py-1 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none rounded-sm ${

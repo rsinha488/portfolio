@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, Phone } from "lucide-react";
+import { ArrowRight, Mail, Phone, Download } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
@@ -124,6 +124,16 @@ export default function Hero() {
                                 View Projects <ArrowRight size={18} aria-hidden="true" />
                             </Button>
                         </Link>
+                        <a 
+                            href={displayProfile.resumeUrl || "/Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf"} 
+                            download="Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <Button size="lg" variant="outline" className="h-12 px-8 text-md gap-2 cursor-pointer border-gray-200 dark:border-gray-800 hover:bg-blue-50/50 dark:hover:bg-blue-950/20">
+                                <Download size={18} aria-hidden="true" /> Download Resume
+                            </Button>
+                        </a>
                         <Link href="#contact">
                             <Button size="lg" variant="outline" className="h-12 px-8 text-md cursor-pointer border-gray-200 dark:border-gray-800">
                                 Contact Me

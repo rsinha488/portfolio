@@ -55,9 +55,9 @@ export default function TestimonialsSection() {
                     </p>
                 </motion.div>
 
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <ul className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 list-none p-0">
                     {displayTestimonials.map((item: any, index: number) => (
-                        <motion.div
+                        <motion.li
                             key={item._id}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -66,15 +66,15 @@ export default function TestimonialsSection() {
                         >
                             <Card className="h-full relative">
                                 <CardContent className="pt-12">
-                                    <Quote className="absolute top-6 left-6 text-blue-100 dark:text-blue-900 w-12 h-12 -z-10" />
+                                    <Quote className="absolute top-6 left-6 text-blue-100 dark:text-blue-900 w-12 h-12 -z-10" aria-hidden="true" />
                                     <p className="text-gray-700 dark:text-gray-300 mb-6 italic relative z-10">
                                         "{item.content}"
                                     </p>
                                     <div className="flex items-center gap-4">
                                         {item.avatar ? (
-                                            <img src={item.avatar} alt={item.name} className="w-10 h-10 rounded-full object-cover" />
+                                            <img src={item.avatar} alt={`Photo of ${item.name}`} className="w-10 h-10 rounded-full object-cover" />
                                         ) : (
-                                            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                                            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold" aria-hidden="true">
                                                 {item.name[0]}
                                             </div>
                                         )}
@@ -85,9 +85,9 @@ export default function TestimonialsSection() {
                                     </div>
                                 </CardContent>
                             </Card>
-                        </motion.div>
+                        </motion.li>
                     ))}
-                </div>
+                </ul>
             </div>
         </section>
     );

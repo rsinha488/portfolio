@@ -84,15 +84,15 @@ export default function DashboardPage() {
     const getActivityIcon = (type: string) => {
         switch (type) {
             case "project":
-                return <FolderKanban className="h-4 w-4 text-blue-600" />;
+                return <FolderKanban className="h-4 w-4 text-blue-600" aria-hidden="true" />;
             case "blog":
-                return <FileText className="h-4 w-4 text-emerald-600" />;
+                return <FileText className="h-4 w-4 text-emerald-600" aria-hidden="true" />;
             case "message":
-                return <MessageSquare className="h-4 w-4 text-purple-600" />;
+                return <MessageSquare className="h-4 w-4 text-purple-600" aria-hidden="true" />;
             case "testimonial":
-                return <Star className="h-4 w-4 text-amber-500" fill="currentColor" />;
+                return <Star className="h-4 w-4 text-amber-500" fill="currentColor" aria-hidden="true" />;
             default:
-                return <Activity className="h-4 w-4 text-gray-600" />;
+                return <Activity className="h-4 w-4 text-gray-600" aria-hidden="true" />;
         }
     };
 
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                             Total Visits
                         </CardTitle>
                         <div className="rounded-lg bg-blue-50 dark:bg-blue-950/40 p-2 text-blue-600 dark:text-blue-400">
-                            <Eye className="h-5 w-5" />
+                            <Eye className="h-5 w-5" aria-hidden="true" />
                         </div>
                     </CardHeader>
                     <CardContent>
@@ -154,7 +154,7 @@ export default function DashboardPage() {
                             {stats?.totalViews || 1}
                         </div>
                         <div className="mt-1 flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-medium">
-                            <TrendingUp className="h-3 w-3" />
+                            <TrendingUp className="h-3 w-3" aria-hidden="true" />
                             <span>Live unique session tracker</span>
                         </div>
                     </CardContent>
@@ -167,7 +167,7 @@ export default function DashboardPage() {
                             Projects
                         </CardTitle>
                         <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/40 p-2 text-emerald-600 dark:text-emerald-400">
-                            <FolderKanban className="h-5 w-5" />
+                            <FolderKanban className="h-5 w-5" aria-hidden="true" />
                         </div>
                     </CardHeader>
                     <CardContent>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
                             {stats?.totalProjects || 0}
                         </div>
                         <div className="mt-1 flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                            <ArrowUpRight className="h-3 w-3" />
+                            <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
                             <span>Displayed on portfolio</span>
                         </div>
                     </CardContent>
@@ -188,7 +188,7 @@ export default function DashboardPage() {
                             Inquiries
                         </CardTitle>
                         <div className="rounded-lg bg-purple-50 dark:bg-purple-950/40 p-2 text-purple-600 dark:text-purple-400">
-                            <MessageSquare className="h-5 w-5" />
+                            <MessageSquare className="h-5 w-5" aria-hidden="true" />
                         </div>
                     </CardHeader>
                     <CardContent>
@@ -196,7 +196,7 @@ export default function DashboardPage() {
                             {stats?.totalMessages || 0}
                         </div>
                         <div className="mt-1 flex items-center gap-1 text-xs text-purple-600 dark:text-purple-400 font-medium">
-                            <ArrowUpRight className="h-3 w-3" />
+                            <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
                             <span>Visitor contact submissions</span>
                         </div>
                     </CardContent>
@@ -209,7 +209,7 @@ export default function DashboardPage() {
                             Blog Posts
                         </CardTitle>
                         <div className="rounded-lg bg-teal-50 dark:bg-teal-950/40 p-2 text-teal-600 dark:text-teal-400">
-                            <FileText className="h-5 w-5" />
+                            <FileText className="h-5 w-5" aria-hidden="true" />
                         </div>
                     </CardHeader>
                     <CardContent>
@@ -229,7 +229,7 @@ export default function DashboardPage() {
                             Testimonials
                         </CardTitle>
                         <div className="rounded-lg bg-amber-50 dark:bg-amber-950/40 p-2 text-amber-500 dark:text-amber-400">
-                            <Star className="h-5 w-5" />
+                            <Star className="h-5 w-5" aria-hidden="true" />
                         </div>
                     </CardHeader>
                     <CardContent>
@@ -249,7 +249,7 @@ export default function DashboardPage() {
                             Skills
                         </CardTitle>
                         <div className="rounded-lg bg-rose-50 dark:bg-rose-950/40 p-2 text-rose-600 dark:text-rose-400">
-                            <Code2 className="h-5 w-5" />
+                            <Code2 className="h-5 w-5" aria-hidden="true" />
                         </div>
                     </CardHeader>
                     <CardContent>
@@ -279,7 +279,26 @@ export default function DashboardPage() {
                                 No traffic data recorded.
                             </div>
                         ) : (
-                            <div className="w-full flex-1 flex flex-col">
+                            <div className="w-full flex-1 flex flex-col" role="region" aria-label="Traffic overview chart">
+                                {/* Screen reader only data fallback */}
+                                <table className="sr-only">
+                                    <caption>Traffic Overview (Last 7 Days)</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Visits</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {chartData.map((item, idx) => (
+                                            <tr key={idx}>
+                                                <td>{item.date}</td>
+                                                <td>{item.views}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+
                                 {/* The dynamic chart area */}
                                 <div className="flex-1 flex items-end gap-3 px-2 border-b border-gray-100 dark:border-gray-800 pb-2 relative">
                                     {/* Grid Lines */}
@@ -294,9 +313,14 @@ export default function DashboardPage() {
                                         return (
                                             <div 
                                                 key={idx} 
-                                                className="flex-1 flex flex-col items-center group relative h-full justify-end cursor-pointer"
+                                                className="flex-1 flex flex-col items-center group relative h-full justify-end cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-sm"
+                                                role="button"
+                                                tabIndex={0}
+                                                aria-label={`${item.views} visits on ${item.date}`}
                                                 onMouseEnter={() => setHoveredBarIndex(idx)}
                                                 onMouseLeave={() => setHoveredBarIndex(null)}
+                                                onFocus={() => setHoveredBarIndex(idx)}
+                                                onBlur={() => setHoveredBarIndex(null)}
                                             >
                                                 {/* Tooltip */}
                                                 {hoveredBarIndex === idx && (

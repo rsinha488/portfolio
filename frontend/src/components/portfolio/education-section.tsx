@@ -147,21 +147,21 @@ export default function EducationSection() {
                     </p>
                 </motion.div>
 
-                <motion.div
+                <motion.ul
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto"
+                    className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto list-none p-0"
                 >
                     {education.map((edu: any) => (
-                        <motion.div
+                        <motion.li
                             key={edu._id}
                             variants={itemVariants}
                             className="flex gap-5 bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 dark:hover:border-blue-500/20 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 group"
                         >
                             <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-300">
-                                <GraduationCap size={24} />
+                                <GraduationCap size={24} aria-hidden="true" />
                             </div>
                             <div className="flex-1 space-y-2">
                                 <div className="flex items-start justify-between flex-wrap gap-2">
@@ -179,9 +179,9 @@ export default function EducationSection() {
                                     {edu.description}
                                 </p>
                             </div>
-                        </motion.div>
+                        </motion.li>
                     ))}
-                </motion.div>
+                </motion.ul>
             </div>
         </section>
     );

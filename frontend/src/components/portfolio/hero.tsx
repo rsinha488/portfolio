@@ -100,13 +100,13 @@ export default function Hero() {
                         >
                             {displayProfile.email && (
                                 <a href={`mailto:${displayProfile.email}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1">
-                                    <Mail size={16} />
+                                    <Mail size={16} aria-hidden="true" />
                                     <span>{displayProfile.email}</span>
                                 </a>
                             )}
                             {displayProfile.phone && (
                                 <a href={`tel:${displayProfile.phone}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1">
-                                    <Phone size={16} />
+                                    <Phone size={16} aria-hidden="true" />
                                     <span>{displayProfile.phone}</span>
                                 </a>
                             )}
@@ -119,26 +119,26 @@ export default function Hero() {
                         transition={{ duration: 0.5, delay: 0.3 }}
                         className="flex flex-wrap justify-center gap-4 pt-2"
                     >
-                        <Link href="#projects">
-                            <Button size="lg" className="h-12 px-8 text-md gap-2 cursor-pointer shadow-lg shadow-blue-500/20 bg-blue-600 hover:bg-blue-700 text-white border-0">
+                        <Button asChild size="lg" className="h-12 px-8 text-md gap-2 cursor-pointer shadow-lg shadow-blue-500/20 bg-blue-600 hover:bg-blue-700 text-white border-0">
+                            <Link href="#projects">
                                 View Projects <ArrowRight size={18} aria-hidden="true" />
-                            </Button>
-                        </Link>
-                        <a 
-                            href={displayProfile.resumeUrl || "/Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf"} 
-                            download="Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <Button size="lg" variant="outline" className="h-12 px-8 text-md gap-2 cursor-pointer border-gray-200 dark:border-gray-800 hover:bg-blue-50/50 dark:hover:bg-blue-950/20">
+                            </Link>
+                        </Button>
+                        <Button asChild size="lg" variant="outline" className="h-12 px-8 text-md gap-2 cursor-pointer border-gray-200 dark:border-gray-800 hover:bg-blue-50/50 dark:hover:bg-blue-950/20">
+                            <a 
+                                href={displayProfile.resumeUrl || "/Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf"} 
+                                download="Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 <Download size={18} aria-hidden="true" /> Download Resume
-                            </Button>
-                        </a>
-                        <Link href="#contact">
-                            <Button size="lg" variant="outline" className="h-12 px-8 text-md cursor-pointer border-gray-200 dark:border-gray-800">
+                            </a>
+                        </Button>
+                        <Button asChild size="lg" variant="outline" className="h-12 px-8 text-md cursor-pointer border-gray-200 dark:border-gray-800">
+                            <Link href="#contact">
                                 Contact Me
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                     </motion.div>
 
                     <motion.div

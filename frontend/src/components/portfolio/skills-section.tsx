@@ -60,15 +60,15 @@ export default function SkillsSection() {
                     </p>
                 </motion.div>
 
-                <motion.div 
+                <motion.ul 
                     key={displaySkills.length}
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
-                    className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+                    className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 list-none p-0"
                 >
                     {displaySkills.map((category: any) => (
-                        <motion.div
+                        <motion.li
                             key={category._id}
                             variants={itemVariants}
                             className="group bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800 hover:border-blue-500/30"
@@ -76,19 +76,19 @@ export default function SkillsSection() {
                             <h3 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 text-gray-400 group-hover:text-blue-500 transition-colors">
                                 {category.category}
                             </h3>
-                            <div className="flex flex-wrap gap-2.5">
+                            <ul className="flex flex-wrap gap-2.5 list-none p-0" aria-label={`Skills in ${category.category}`}>
                                 {category.items.map((skill: string) => (
-                                    <span
+                                    <li
                                         key={skill}
                                         className="px-3 py-1.5 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 rounded-lg text-[10px] font-bold uppercase tracking-wider border border-transparent dark:border-gray-700/50 group-hover:border-blue-500/20 transition-colors"
                                     >
                                         {skill}
-                                    </span>
+                                    </li>
                                 ))}
-                            </div>
-                        </motion.div>
+                            </ul>
+                        </motion.li>
                     ))}
-                </motion.div>
+                </motion.ul>
             </div>
         </section>
     );

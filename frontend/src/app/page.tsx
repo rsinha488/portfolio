@@ -33,7 +33,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -53,6 +53,6 @@ export default function Home() {
           <p>© {new Date().getFullYear()} Ruchi Sinha. All rights reserved.</p>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }

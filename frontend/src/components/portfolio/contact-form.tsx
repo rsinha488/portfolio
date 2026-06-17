@@ -44,7 +44,7 @@ function ContactInfo() {
                 {email && (
                     <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                            <Mail size={20} />
+                            <Mail size={20} aria-hidden="true" />
                         </div>
                         <div>
                             <p className="font-medium text-gray-950 dark:text-white">Email</p>
@@ -55,7 +55,7 @@ function ContactInfo() {
                 {location && (
                     <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                            <MapPin size={20} />
+                            <MapPin size={20} aria-hidden="true" />
                         </div>
                         <div>
                             <p className="font-medium text-gray-950 dark:text-white">Location</p>
@@ -138,24 +138,57 @@ export default function ContactSection() {
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <label htmlFor="name" className="sr-only">Your Name</label>
-                                                <Input id="name" placeholder="Name" {...register("name")} disabled={loading} aria-invalid={errors.name ? "true" : "false"} />
-                                                {errors.name && <p className="text-xs text-red-500" role="alert">{errors.name.message}</p>}
+                                                <Input 
+                                                    id="name" 
+                                                    placeholder="Name" 
+                                                    {...register("name")} 
+                                                    disabled={loading} 
+                                                    aria-invalid={errors.name ? "true" : "false"} 
+                                                    aria-describedby={errors.name ? "name-error" : undefined}
+                                                    aria-required="true"
+                                                />
+                                                {errors.name && <p id="name-error" className="text-xs text-red-500" role="alert">{errors.name.message}</p>}
                                             </div>
                                             <div className="space-y-2">
                                                 <label htmlFor="email" className="sr-only">Your Email</label>
-                                                <Input id="email" placeholder="Email" {...register("email")} disabled={loading} aria-invalid={errors.email ? "true" : "false"} />
-                                                {errors.email && <p className="text-xs text-red-500" role="alert">{errors.email.message}</p>}
+                                                <Input 
+                                                    id="email" 
+                                                    placeholder="Email" 
+                                                    {...register("email")} 
+                                                    disabled={loading} 
+                                                    aria-invalid={errors.email ? "true" : "false"} 
+                                                    aria-describedby={errors.email ? "email-error" : undefined}
+                                                    aria-required="true"
+                                                />
+                                                {errors.email && <p id="email-error" className="text-xs text-red-500" role="alert">{errors.email.message}</p>}
                                             </div>
                                         </div>
                                         <div className="space-y-2">
                                             <label htmlFor="subject" className="sr-only">Message Subject</label>
-                                            <Input id="subject" placeholder="Subject" {...register("subject")} disabled={loading} aria-invalid={errors.subject ? "true" : "false"} />
-                                            {errors.subject && <p className="text-xs text-red-500" role="alert">{errors.subject.message}</p>}
+                                            <Input 
+                                                id="subject" 
+                                                placeholder="Subject" 
+                                                {...register("subject")} 
+                                                disabled={loading} 
+                                                aria-invalid={errors.subject ? "true" : "false"} 
+                                                aria-describedby={errors.subject ? "subject-error" : undefined}
+                                                aria-required="true"
+                                            />
+                                            {errors.subject && <p id="subject-error" className="text-xs text-red-500" role="alert">{errors.subject.message}</p>}
                                         </div>
                                         <div className="space-y-2">
                                             <label htmlFor="message" className="sr-only">Message Content</label>
-                                            <Textarea id="message" placeholder="Message" className="min-h-[120px]" {...register("message")} disabled={loading} aria-invalid={errors.message ? "true" : "false"} />
-                                            {errors.message && <p className="text-xs text-red-500" role="alert">{errors.message.message}</p>}
+                                            <Textarea 
+                                                id="message" 
+                                                placeholder="Message" 
+                                                className="min-h-[120px]" 
+                                                {...register("message")} 
+                                                disabled={loading} 
+                                                aria-invalid={errors.message ? "true" : "false"} 
+                                                aria-describedby={errors.message ? "message-error" : undefined}
+                                                aria-required="true"
+                                            />
+                                            {errors.message && <p id="message-error" className="text-xs text-red-500" role="alert">{errors.message.message}</p>}
                                         </div>
                                         <Button type="submit" className="w-full" disabled={loading}>
                                             {loading ? "Sending..." : "Send Message"}

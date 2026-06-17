@@ -114,6 +114,34 @@ export default function Timeline() {
         return activeExp ? parseDescription(activeExp.description) : [];
     }, [activeExp]);
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
+        let newIndex = index;
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+            e.preventDefault();
+            newIndex = (index + 1) % experiences.length;
+        } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+            e.preventDefault();
+            newIndex = (index - 1 + experiences.length) % experiences.length;
+        } else if (e.key === "Home") {
+            e.preventDefault();
+            newIndex = 0;
+        } else if (e.key === "End") {
+            e.preventDefault();
+            newIndex = experiences.length - 1;
+        } else {
+            return;
+        }
+
+        setActiveTab(newIndex);
+        // Focus the newly active tab button
+        setTimeout(() => {
+            const nextTabButton = document.getElementById(`tab-${experiences[newIndex]._id}`);
+            if (nextTabButton) {
+                nextTabButton.focus();
+            }
+        }, 0);
+    };
+
     if (isLoading) {
         return (
             <section id="experience" className="py-24 bg-slate-950 text-center">
@@ -177,7 +205,9 @@ export default function Timeline() {
                                     role="tab"
                                     aria-selected={isActive}
                                     aria-controls={`panel-${exp._id}`}
+                                    tabIndex={isActive ? 0 : -1}
                                     onClick={() => setActiveTab(index)}
+                                    onKeyDown={(e) => handleKeyDown(e, index)}
                                     className={`relative px-5 py-4 text-left transition-all duration-300 rounded-lg md:rounded-r-lg md:rounded-l-none outline-none flex flex-col items-start gap-1 shrink-0 ${
                                         isActive 
                                         ? "text-blue-600 dark:text-blue-400 bg-blue-500/5 font-extrabold" 
@@ -229,14 +259,14 @@ export default function Timeline() {
                                                 {activeExp.title}
                                             </h3>
                                             <div className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 font-semibold mt-1">
-                                                <Building2 size={14} />
+                                                <Building2 size={14} aria-hidden="true" />
                                                 <span>{activeExp.company}</span>
                                             </div>
                                         </div>
 
                                         {/* Date Badge */}
                                         <div className="flex items-center gap-2 shrink-0 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 px-3 py-1.5 rounded-full self-start md:self-center">
-                                            <Calendar size={13} />
+                                            <Calendar size={13} aria-hidden="true" />
                                             <span className="text-xs font-bold uppercase tracking-wider">{activeExp.year}</span>
                                         </div>
                                     </div>
@@ -250,7 +280,7 @@ export default function Timeline() {
                                             {bulletPoints.map((point, idx) => (
                                                 <li key={idx} className="flex gap-3 items-start text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                                                     <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-md bg-blue-50 dark:bg-blue-950/40 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                                                        <ChevronRight size={14} className="opacity-80" />
+                                                        <ChevronRight size={14} aria-hidden="true" className="opacity-80" />
                                                     </div>
                                                     <span>{point}</span>
                                                 </li>

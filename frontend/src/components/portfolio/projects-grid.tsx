@@ -325,9 +325,10 @@ export default function ProjectsGrid() {
                     {/* Search and Filters */}
                     <div className="space-y-6 max-w-2xl mx-auto">
                         <div className="relative group">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} aria-hidden="true" />
                             <Input 
                                 placeholder="Search by name or technology..." 
+                                aria-label="Search projects by name or technology"
                                 className="pl-10 h-11 border-gray-100 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm focus:ring-blue-500/20"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
@@ -353,16 +354,16 @@ export default function ProjectsGrid() {
                     </div>
                 </motion.div>
 
-                <motion.div 
+                <motion.ul 
                     key={filteredProjects?.length || 0}
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+                    className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 list-none p-0"
                 >
                     {filteredProjects?.map((project: any) => (
-                        <motion.div
+                        <motion.li
                             key={project._id}
                             variants={itemVariants}
                             layout
@@ -409,7 +410,7 @@ export default function ProjectsGrid() {
                                                     <div className="absolute -top-12 -left-12 w-24 h-24 bg-white/10 rounded-full blur-xl" />
                                                     <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-white/15 rounded-full blur-2xl" />
                                                     
-                                                    <ProjectIcon className="w-12 h-12 text-white/90 drop-shadow-md z-10 mb-3 group-hover:scale-110 transition-transform duration-500" />
+                                                    <ProjectIcon className="w-12 h-12 text-white/90 drop-shadow-md z-10 mb-3 group-hover:scale-110 transition-transform duration-500" aria-hidden="true" />
                                                     <span className="text-white/95 font-bold uppercase tracking-widest text-[9px] z-10 bg-white/10 px-3 py-1 rounded-full backdrop-blur-xs text-center max-w-[85%] truncate" title={project.title}>
                                                         {project.title}
                                                     </span>
@@ -465,9 +466,9 @@ export default function ProjectsGrid() {
                                     )}
                                 </CardFooter>
                             </Card>
-                        </motion.div>
+                        </motion.li>
                     ))}
-                </motion.div>
+                </motion.ul>
             </div>
 
             {/* Project Details Modal */}
@@ -477,14 +478,14 @@ export default function ProjectsGrid() {
                     const ProjectIcon = theme.icon;
                     const points = selectedProject.points || PROJECT_DETAILS_MAP[selectedProject.slug] || [];
                     return (
-                        <DialogContent className="max-w-4xl p-0 overflow-hidden bg-white dark:bg-gray-950 border-gray-100 dark:border-gray-800 rounded-2xl shadow-2xl">
+                        <DialogContent className="w-screen max-w-none h-screen max-h-none translate-x-0 translate-y-0 top-0 left-0 rounded-none border-0 p-0 overflow-hidden bg-white dark:bg-gray-950 shadow-2xl">
                             <DialogHeader className="sr-only">
                                 <DialogTitle>{selectedProject.title}</DialogTitle>
                                 <DialogDescription>Details about {selectedProject.title}</DialogDescription>
                             </DialogHeader>
-                            <div className="grid grid-cols-1 md:grid-cols-5 h-full max-h-[85vh] md:max-h-[75vh] overflow-y-auto md:overflow-hidden">
+                            <div className="grid grid-cols-1 md:grid-cols-5 h-full max-h-screen overflow-y-auto md:overflow-hidden">
                                 {/* Left Side: Image or Gradient banner */}
-                                <div className="md:col-span-2 relative h-56 md:h-full min-h-[250px] overflow-hidden bg-gray-100 dark:bg-gray-900 border-r border-gray-50 dark:border-gray-900">
+                                <div className="md:col-span-2 relative h-56 md:h-full overflow-hidden bg-gray-100 dark:bg-gray-900 border-r border-gray-50 dark:border-gray-900">
                                     {isPlaceholderImage(selectedProject.images?.[0]?.url) ? (
                                         <div className={`w-full h-full bg-gradient-to-br ${theme.gradient} flex flex-col items-center justify-center p-8 text-center relative`}>
                                             <div className="absolute inset-0 bg-grid-white/[0.05]" />
@@ -508,7 +509,7 @@ export default function ProjectsGrid() {
                                 </div>
 
                                 {/* Right Side: Details */}
-                                <div className="md:col-span-3 p-6 md:p-8 flex flex-col justify-between overflow-y-auto md:max-h-[75vh] bg-white dark:bg-gray-950">
+                                <div className="md:col-span-3 p-6 md:p-12 flex flex-col justify-between overflow-y-auto md:h-full bg-white dark:bg-gray-950">
                                     <div>
                                         {/* Header */}
                                         <div className="flex items-center gap-2 mb-3">

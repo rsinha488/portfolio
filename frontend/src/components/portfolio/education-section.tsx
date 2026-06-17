@@ -133,7 +133,7 @@ export default function EducationSection() {
     }
 
     return (
-        <section id="education" className="py-24 bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-800">
+        <section id="education" tabIndex={-1} className="py-24 bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-800 focus:outline-none">
             <div className="container px-4 mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

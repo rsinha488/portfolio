@@ -87,7 +87,7 @@ export default function AchievementsSection() {
     }
 
     return (
-        <section id="achievements" className="py-24 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 relative overflow-hidden">
+        <section id="achievements" tabIndex={-1} className="py-24 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 relative overflow-hidden focus:outline-none">
             {/* Background elements */}
             <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 dark:opacity-10 pointer-events-none" />
             <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 dark:opacity-10 pointer-events-none" />

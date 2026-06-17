@@ -101,6 +101,15 @@ export default function Navbar() {
                         <Link
                             key={item.id}
                             href={`#${item.id}`}
+                            onClick={(e) => {
+                                const target = document.getElementById(item.id);
+                                if (target) {
+                                    target.setAttribute('tabindex', '-1');
+                                    setTimeout(() => {
+                                        target.focus({ preventScroll: true });
+                                    }, 100);
+                                }
+                            }}
                             className={`relative py-1 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none rounded-sm ${
                                 activeSection === item.id 
                                     ? "text-blue-600 dark:text-blue-400 font-extrabold" 

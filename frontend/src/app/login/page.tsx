@@ -21,7 +21,7 @@ function LoginContent() {
     if (loading) return <div className="flex h-screen items-center justify-center">Loading...</div>;
 
     return (
-        <div className="flex h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <main id="main-content" tabIndex={-1} className="flex h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 outline-none">
             <Card className="w-full max-w-md">
                 <CardHeader className="text-center">
                     <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
@@ -72,7 +72,7 @@ function LoginContent() {
                     </Button>
                 </CardContent>
             </Card>
-        </div>
+        </main>
     );
 }
 

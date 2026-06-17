@@ -309,7 +309,7 @@ export default function ProjectsGrid() {
     );
 
     return (
-        <section id="projects" className="py-24 bg-gray-50 dark:bg-gray-800">
+        <section id="projects" tabIndex={-1} className="py-24 bg-gray-50 dark:bg-gray-800 focus:outline-none">
             <div className="container px-4 mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

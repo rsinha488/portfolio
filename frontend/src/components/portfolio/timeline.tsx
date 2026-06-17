@@ -164,7 +164,7 @@ export default function Timeline() {
     }
 
     return (
-        <section id="experience" className="relative py-24 bg-white dark:bg-slate-950 overflow-hidden border-t border-gray-100 dark:border-slate-900 transition-colors duration-500">
+        <section id="experience" tabIndex={-1} className="relative py-24 bg-white dark:bg-slate-950 overflow-hidden border-t border-gray-100 dark:border-slate-900 transition-colors duration-500 focus:outline-none">
             {/* Background elements */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-10 dark:opacity-30" />
             <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />

@@ -39,13 +39,15 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Navbar />
-      <Hero />
-      <SkillsSection />
-      <Timeline />
-      <EducationSection />
-      <ProjectsGrid />
-      <AchievementsSection />
-      <ContactSection />
+      <main id="main-content" tabIndex={-1} className="outline-none">
+        <Hero />
+        <SkillsSection />
+        <Timeline />
+        <EducationSection />
+        <ProjectsGrid />
+        <AchievementsSection />
+        <ContactSection />
+      </main>
 
       {/* Footer */}
       <footer className="py-12 border-t border-gray-200 dark:border-gray-800">

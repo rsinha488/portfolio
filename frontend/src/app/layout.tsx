@@ -74,9 +74,9 @@ export default function RootLayout({
           Skip to content
         </a>
         <Providers>
-          <main id="main-content">
+          <div className="min-h-screen flex flex-col">
             {children}
-          </main>
+          </div>
           <Toaster position="bottom-right" theme="system" closeButton richColors />
         </Providers>
       </body>

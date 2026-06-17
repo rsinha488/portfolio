@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, Download } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import api from "@/lib/api";
 
@@ -129,6 +129,18 @@ export default function Navbar() {
                 </nav>
 
                 <div className="flex items-center gap-3">
+                    <Button asChild variant="outline" size="sm" className="hidden sm:flex gap-1.5 h-9 px-4 text-xs font-bold uppercase tracking-wider border-gray-200 dark:border-gray-800 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 cursor-pointer">
+                        <a 
+                            href="/Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf" 
+                            download="Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Download Resume"
+                        >
+                            <Download size={13} aria-hidden="true" />
+                            <span>Resume</span>
+                        </a>
+                    </Button>
                     <ThemeToggle />
                     {!loading && user && (
                         <Link href="/dashboard">

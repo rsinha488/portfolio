@@ -49,9 +49,22 @@ export default function Hero() {
                         transition={{ duration: 0.5 }}
                         className="flex flex-col items-center gap-4"
                     >
-                        <span className="px-3 py-1 text-sm font-medium bg-blue-100 text-blue-600 rounded-full dark:bg-blue-900/30 dark:text-blue-400">
-                            Available for hire
-                        </span>
+                        <div className="flex items-center gap-3">
+                            <span className="px-3 py-1 text-sm font-medium bg-blue-100 text-blue-600 rounded-full dark:bg-blue-900/30 dark:text-blue-400">
+                                Available for hire
+                            </span>
+                            <a 
+                                href={displayProfile.resumeUrl || "/Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf"} 
+                                download="Ruchi_Sinha_AI_FullStack_Engineer_2026.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center p-1.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 dark:bg-blue-950/50 dark:text-blue-400 dark:hover:bg-blue-900/40 transition-colors shadow-sm focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none"
+                                title="Download Resume"
+                                aria-label="Download Resume"
+                            >
+                                <Download size={14} aria-hidden="true" />
+                            </a>
+                        </div>
 
                         {(displayProfile.avatar || displayProfile.name) && (
                             <motion.div
